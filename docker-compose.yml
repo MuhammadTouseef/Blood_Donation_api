@@ -20,7 +20,7 @@ services:
     #   args:
     #     some-arg: 1
     ports:
-      - '5000:5000'
+      - '8080:8080'
     volumes:
       - ./:/opt/project
       - /opt/project/node_modules
@@ -28,16 +28,7 @@ services:
       - ./env/backend.env
     depends_on:
       - mongodb
-#  frontend:
-#    build: ./frontend
-#    ports:
-#      - '3000:3000'
-#    volumes:
-#      - ./frontend/src:/app/src
-#    stdin_open: true
-#    tty: true
-#    depends_on:
-#      - backend
+
 
 volumes:
   mongodata:

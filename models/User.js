@@ -36,7 +36,22 @@ const UserSchema = new mongoose.Schema({
         minlength: 6,
         select: false
     },
-    resetPasswordToken: String,
+    gender:{
+        type: String,
+        enum: ["Male","Female","Other"]
+    },
+    address:{
+        type:String
+    },
+    medication:{
+        type:String
+    },
+    illness:{
+        type:String
+    },
+    resetPasswordToken: {
+        type: String,
+    },
     resetPasswordExpire: Date,
     createdAt: {
         type: Date,

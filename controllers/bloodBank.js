@@ -4,8 +4,7 @@ const BloodBank = require('../models/Bloodbank')
 
 exports.find = asyncHandler(async (req, res, next) => {
 
-    let data = await BloodBank.find({ 'address' : { '$regex' : req.query.search, '$options' : 'i' } })
-    console.log(data)
-res.status(200).json({ success: true, data })
+    let data = await BloodBank.find({'address': {'$regex': req.query.search, '$options': 'i'}})
+    res.status(200).json({success: true, data})
 
 })

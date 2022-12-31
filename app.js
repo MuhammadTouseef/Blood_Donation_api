@@ -11,11 +11,16 @@ const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const cors = require('cors');
+const morgan = require("morgan");
+const blood = require('./models/Bloodbank')
 
 // Routes Import
 const auth = require("./routes/auth")
 const bloodbank = require("./routes/bloodBank")
-const morgan = require("morgan");
+const campaaign = require("./routes/campaign")
+const user = require("./routes/user")
+const {add} = require("nodemon/lib/rules");
+
 
 
 const app = express();
@@ -48,8 +53,31 @@ app.use(xss());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/bloodbank", bloodbank);
+app.use("/api/v1/campaign", campaaign);
+app.use("/api/v1/user", user);
 
 
+const addbloodbanks = async()=>{
+    let len = await blood.count()
+
+    if(len === 0){
+        await blood.create([
+                {
+                    "name": "Blood Bank, PIMS Hospital",
+                    "address": "G 8/3 G-8, Islamabad",
+                    "phonenumber": "123456778"
+                },
+                {
+                    "name": "Pakistan Thalassemia Center",
+                    "address": "Jinnah Avenue, F-9, Islamabad",
+                    "phonenumber": "123456778"
+                }
+            ]
+        )
+    }
+
+}
+addbloodbanks()
 
 app.use(errorHandler);
 
